@@ -22,7 +22,7 @@ function onMIDIFailure() {
 function onMIDISuccess(midiAccess) {
     for (var input of midiAccess.inputs.values())
         input.onmidimessage = getMIDIMessage;
-    }
+}
 
 function getMIDIMessage(message) {
 
@@ -35,26 +35,29 @@ function getMIDIMessage(message) {
     let data = [message.data]
 
     switch (command) {
-    case 144: //noteon
-        if (velocity > 0) {
-            noteOn(note, velocity, command, data) 
-        }
-        else {
-            noteoff(note) 
+        case 144: //noteon
+            if (velocity > 0) {
+                noteOn(note, velocity, command, data)
+            }
+            else {
+                noteoff(note)
 
-        }
-        break
-    case 128: //noteoff
-        noteoff(note, command)
-        break
+            }
+            break
+        case 128: //noteoff
+            noteoff(note, command)
+            break
     }
 }
+
+//todo: create 88 divs, one div for each note, each note will be displayed if the id of the div matches the note
 
 function noteOn(note, velocity, command, data) {
     console.log(note, velocity, command)
     console.log(data)
+    document.getElementById('output').innerHTML = note
 }
 
-function noteoff(note, command){
+function noteoff(note, command) {
     console.log('release', note, command)
 }
